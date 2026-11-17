@@ -1,0 +1,707 @@
+/* =========================================================
+   Layout principal
+   ========================================================= */
+
+.page {
+  width: 100%;
+  max-width: 1560px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: clamp(12px, 2.2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.6vw, 20px);
+  background:
+    radial-gradient(
+      1100px 480px at 8% -12%,
+      var(--color-brand-soft),
+      transparent 70%
+    ),
+    var(--color-bg);
+}
+
+/* =========================================================
+   Cabecera
+   ========================================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  padding: 14px clamp(14px, 2vw, 22px);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.brandIcon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-warning-soft);
+  border: 1px solid var(--color-warning-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brandIcon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.brandText {
+  min-width: 0;
+}
+
+.brandTitle {
+  margin: 0;
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.brandSubtitle {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 7px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.statusDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.statusOnline {
+  color: var(--color-success);
+  background-color: var(--color-success-soft);
+  border-color: var(--color-success-border);
+}
+
+.statusOffline {
+  color: var(--color-danger);
+  background-color: var(--color-danger-soft);
+  border-color: var(--color-danger-border);
+}
+
+.statusOnline .statusDot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  animation: ping 2s ease-out infinite;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   Contenido: mapa + panel lateral
+   ========================================================= */
+
+.content {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 344px;
+  align-items: stretch;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+.mapCard {
+  position: relative;
+  min-height: clamp(420px, calc(100dvh - 220px), 900px);
+  overflow: hidden;
+  background-color: var(--color-bg-accent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.mapOverlay {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 13px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.mapOverlayDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-brand);
+  box-shadow: 0 0 0 3px var(--color-brand-ring);
+}
+
+/* =========================================================
+   Panel lateral
+   ========================================================= */
+
+.sidebar {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.card {
+  padding: 18px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.vehiclesCard {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+}
+
+.cardBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-brand-strong);
+  background-color: var(--color-brand-soft);
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-pill);
+}
+
+.cardHint {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+/* Selector de frecuencia */
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 11px 38px 11px 13px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+.select:hover {
+  border-color: var(--color-brand-border);
+}
+
+.select:focus-visible {
+  outline: none;
+  background-color: var(--color-surface);
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px var(--color-brand-ring);
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--color-text-subtle);
+  border-bottom: 2px solid var(--color-text-subtle);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Resumen */
+
+.metaList {
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  border-top: 1px dashed var(--color-border-strong);
+}
+
+.metaItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 13px;
+}
+
+.metaLabel {
+  color: var(--color-text-muted);
+}
+
+.metaValue {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--color-text);
+}
+
+/* Lista de vehículos */
+
+.vehicleList {
+  flex: 1;
+  min-height: 0;
+  max-height: 340px;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+.vehicleItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 9px 11px;
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.vehicleItem:hover {
+  background-color: var(--color-brand-soft);
+  border-color: var(--color-brand-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.vehicleAvatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.vehicleAvatar img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.vehicleInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.vehicleName {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vehicleCoords {
+  margin: 1px 0 0;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vehicleBadge {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-success);
+  background-color: var(--color-success-soft);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-pill);
+}
+
+.emptyState {
+  padding: 22px 16px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-muted);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+.emptyState strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* =========================================================
+   Marcador y popup del mapa
+   ========================================================= */
+
+.marker {
+  background: transparent;
+  border: none;
+}
+
+.markerPin {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-brand);
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+}
+
+.markerPin img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.popup {
+  min-width: 196px;
+  font-family: var(--font-sans);
+}
+
+.popupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 11px;
+}
+
+.popupAvatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-warning-soft);
+  border: 1px solid var(--color-warning-border);
+  border-radius: 10px;
+}
+
+.popupAvatar img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.popupName {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.popupRole {
+  margin: 1px 0 0;
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+.popupCoords {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  margin: 0;
+  padding-top: 10px;
+  font-size: 12px;
+  border-top: 1px dashed var(--color-border-strong);
+}
+
+.popupCoords dt {
+  color: var(--color-text-muted);
+}
+
+.popupCoords dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--color-text);
+}
+
+/* =========================================================
+   Ajustes visuales de Leaflet (usa los tokens)
+   ========================================================= */
+
+.mapCard :global(.leaflet-container) {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-accent);
+}
+
+.mapCard :global(.leaflet-control-zoom) {
+  overflow: hidden;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.mapCard :global(.leaflet-control-zoom a) {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 18px;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border-bottom-color: var(--color-border);
+}
+
+.mapCard :global(.leaflet-control-zoom a:hover) {
+  color: var(--color-brand);
+  background-color: var(--color-surface-muted);
+}
+
+.mapCard :global(.leaflet-control-zoom a:last-child) {
+  border-bottom: none;
+}
+
+.mapCard :global(.leaflet-control-attribution) {
+  padding: 2px 7px;
+  font-size: 10px;
+  background-color: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  border-top-left-radius: var(--radius-sm);
+}
+
+.mapCard :global(.leaflet-control-attribution a) {
+  color: var(--color-brand);
+}
+
+.mapCard :global(.leaflet-popup-content-wrapper) {
+  padding: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.mapCard :global(.leaflet-popup-content) {
+  margin: 12px 14px;
+  line-height: 1.4;
+}
+
+.mapCard :global(.leaflet-popup-tip) {
+  box-shadow: none;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mapCard {
+    min-height: clamp(320px, 58vh, 520px);
+  }
+
+  .vehicleList {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .header {
+    padding: 13px 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .brandIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .brandIcon img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .brandSubtitle {
+    white-space: normal;
+  }
+
+  .headerMeta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pill {
+    padding: 6px 11px;
+    font-size: 12px;
+  }
+
+  .mapCard {
+    min-height: clamp(300px, 52vh, 440px);
+    border-radius: var(--radius-md);
+  }
+
+  .mapOverlay {
+    top: 10px;
+    right: 10px;
+    padding: 7px 11px;
+    font-size: 11.5px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .vehicleList {
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusOnline .statusDot::after {
+    animation: none;
+  }
+
+  .vehicleItem,
+  .select {
+    transition: none;
+  }
+}

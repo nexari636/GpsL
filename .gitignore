@@ -9,3 +9,7 @@
 *.pdf
 *.txt
 *.rar
+
+recursos.txt
+locgpsapp/*
+.gitignore
